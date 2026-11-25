@@ -6,10 +6,10 @@ import { PrototypeNote, SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GARAJ — Used cars from Dubai to Turkmenistan" },
-      { name: "description", content: "Browse used cars imported from Dubai with full price breakdown in USD and TMT." },
-      { property: "og:title", content: "GARAJ — Dubai Cars. Turkmenistan." },
-      { property: "og:description", content: "Used cars from Dubai with shipping and repair estimates." },
+      { title: "GARAJ — подержанные автомобили из Дубая в Туркменистан" },
+      { name: "description", content: "Каталог подержанных автомобилей из Дубая с полной стоимостью в USD и TMT." },
+      { property: "og:title", content: "GARAJ — Автомобили из Дубая. Доставка в Туркменистан" },
+      { property: "og:description", content: "Автомобили из Дубая с расчётом доставки и ремонта." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -37,18 +37,18 @@ function Index() {
       <PrototypeNote />
       <SiteHeader />
       <section className="mx-auto max-w-7xl px-4 pb-6 pt-10">
-        <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl">Cars from Dubai,<br />delivered to <span className="text-primary">Turkmenistan</span></h1>
-        <p className="mt-3 max-w-xl text-muted-foreground">Every listing shows the car price, shipping and estimated repair — so you know the full cost upfront.</p>
+        <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl">Автомобили из Дубая<br />с доставкой в <span className="text-primary">Туркменистан</span></h1>
+        <p className="mt-3 max-w-xl text-muted-foreground">В каждом объявлении — цена автомобиля, доставка и примерная стоимость ремонта. Вы заранее знаете итоговую сумму.</p>
       </section>
       <section className="mx-auto max-w-7xl px-4">
         <div className="grid grid-cols-2 gap-3 rounded-2xl bg-secondary p-4 md:grid-cols-5">
-          <select className={sel} value={brand} onChange={(e) => setBrand(e.target.value)}><option value="">All brands</option>{brands.map((b) => <option key={b}>{b}</option>)}</select>
-          <select className={sel} value={yearFrom} onChange={(e) => setYearFrom(e.target.value)}><option value="">Year from</option>{years.map((y) => <option key={y}>{y}</option>)}</select>
-          <input className={sel} type="number" placeholder="Max price, USD" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} />
-          <select className={sel} value={cond} onChange={(e) => setCond(e.target.value)}><option value="">Any condition</option>{CONDITIONS.map((c) => <option key={c}>{c}</option>)}</select>
-          <button className="col-span-2 h-11 rounded-lg text-sm font-medium text-muted-foreground hover:bg-background md:col-span-1" onClick={() => { setBrand(""); setYearFrom(""); setPriceMax(""); setCond(""); }}>Reset filters</button>
+          <select className={sel} value={brand} onChange={(e) => setBrand(e.target.value)}><option value="">Все марки</option>{brands.map((b) => <option key={b}>{b}</option>)}</select>
+          <select className={sel} value={yearFrom} onChange={(e) => setYearFrom(e.target.value)}><option value="">Год от</option>{years.map((y) => <option key={y}>{y}</option>)}</select>
+          <input className={sel} type="number" placeholder="Цена до, USD" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} />
+          <select className={sel} value={cond} onChange={(e) => setCond(e.target.value)}><option value="">Любое состояние</option>{CONDITIONS.map((c) => <option key={c}>{c}</option>)}</select>
+          <button className="col-span-2 h-11 rounded-lg text-sm font-medium text-muted-foreground hover:bg-background md:col-span-1" onClick={() => { setBrand(""); setYearFrom(""); setPriceMax(""); setCond(""); }}>Сбросить фильтры</button>
         </div>
-        <p className="mt-6 text-sm text-muted-foreground">{list.length} cars found</p>
+        <p className="mt-6 text-sm text-muted-foreground">Найдено автомобилей: {list.length}</p>
         <div className="mt-3 grid gap-6 pb-16 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((c) => (
             <Link key={c.id} to="/cars/$id" params={{ id: c.id }} className="group overflow-hidden rounded-2xl border border-border bg-card transition hover:shadow-lg">
@@ -60,9 +60,9 @@ function Index() {
                   <h3 className="font-semibold">{c.brand} {c.model}</h3>
                   <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground">{c.condition}</span>
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">{c.year} · {fmtKm(c.mileageKm)}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{c.year} г. · {fmtKm(c.mileageKm)}</p>
                 <p className="mt-3 text-xl font-bold">{fmtUsd(c.priceUsd)}</p>
-                <p className="text-xs text-muted-foreground">Total est. {fmtUsd(totalUsd(c))} · {fmtTmt(totalUsd(c))}</p>
+                <p className="text-xs text-muted-foreground">Итого ≈ {fmtUsd(totalUsd(c))} · {fmtTmt(totalUsd(c))}</p>
               </div>
             </Link>
           ))}
